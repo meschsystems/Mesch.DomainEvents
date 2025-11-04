@@ -11,19 +11,33 @@
 		<Version>0.0.1</Version>
 		<Authors>Mesch Systems</Authors>
 		<Company>Mesch Systems</Company>
-		<Description>Source generator library for automatically creating domain events from domain methods in DDD applications</Description>
+		<Description>Source generator library for automatically creating domain events from domain methods.</Description>
 		<Authors>Mesch Systems</Authors>
 		<Company>Mesch Systems</Company>
 		<Copyright>Copyright © Mesch Systems 2025. All Rights Reserved.</Copyright>
 		<PackageTags>domain;ddd;business-logic;event;emitter;audit;sourcegenerator</PackageTags>
 
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<RepositoryUrl>https://github.com/meschsystems/Mesch.DomainEvents</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
 		<DevelopmentDependency>true</DevelopmentDependency>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<!-- Documentation Generation -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<!-- Suppress missing XML comment warnings -->
+		<!-- Include XML documentation in the NuGet package -->
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
 
 	<ItemGroup>
 		<Compile Include="..\Mesch.DomainEvents.Abstractions\IDomainEvent.cs" Link="IDomainEvent.cs" />
@@ -46,6 +60,7 @@
 	<!-- Include the copied DLL in the package -->
 	<ItemGroup>
 		<None Include="$(OutputPath)Mesch.DomainEvents.SourceGenerator.dll" Pack="true" PackagePath="analyzers\dotnet\cs\Mesch.DomainEvents.SourceGenerator.dll" Visible="false" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>
