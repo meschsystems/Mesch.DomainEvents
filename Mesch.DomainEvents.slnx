@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Mesch.DomainEvents.SourceGenerator/Mesch.DomainEvents.SourceGenerator.csproj" />
+  <Project Path="Mesch.DomainEvents.Abstractions/Mesch.DomainEvents.Abstractions.csproj" />
+  <Project Path="Mesch.DomainEvents.Tests/Mesch.DomainEvents.Tests.csproj" />
+  <Project Path="Mesch.DomainEvents/Mesch.DomainEvents.csproj" />
+</Solution>

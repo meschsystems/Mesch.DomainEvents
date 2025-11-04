@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<PackageId>Mesch.DomainEvents</PackageId>
+		<Title>Mesch Domain Events</Title>
+		<Version>0.0.1</Version>
+		<Authors>Mesch Systems</Authors>
+		<Company>Mesch Systems</Company>
+		<Description>Source generator library for automatically creating domain events from domain methods in DDD applications</Description>
+		<Authors>Mesch Systems</Authors>
+		<Company>Mesch Systems</Company>
+		<Copyright>Copyright © Mesch Systems 2025. All Rights Reserved.</Copyright>
+		<PackageTags>domain;ddd;business-logic;event;emitter;audit;sourcegenerator</PackageTags>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<RepositoryUrl>https://github.com/meschsystems/Mesch.DomainEvents</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<DevelopmentDependency>true</DevelopmentDependency>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\IDomainEvent.cs" Link="IDomainEvent.cs" />
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\DomainEventAttribute.cs" Link="DomainEventAttribute.cs" />
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\GenerateDomainEventsAttribute.cs" Link="GenerateDomainEventsAttribute.cs" />
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\DomainEventType.cs" Link="DomainEventType.cs" />
+	</ItemGroup>
+
+	<!-- First build the source generator, then copy it to a known location for packaging -->
+	<Target Name="PrepareSourceGeneratorForPackaging" BeforeTargets="GenerateNuspec">
+		<!-- Build the source generator -->
+		<MSBuild Projects="..\Mesch.DomainEvents.SourceGenerator\Mesch.DomainEvents.SourceGenerator.csproj" Properties="Configuration=$(Configuration);TargetFramework=netstandard2.0" Targets="Build" />
+
+		<!-- Copy the built DLL to our output directory -->
+		<Copy SourceFiles="..\Mesch.DomainEvents.SourceGenerator\bin\$(Configuration)\netstandard2.0\Mesch.DomainEvents.SourceGenerator.dll" DestinationFolder="$(OutputPath)" />
+
+		<Message Text="Source generator prepared for packaging" Importance="high" />
+	</Target>
+
+	<!-- Include the copied DLL in the package -->
+	<ItemGroup>
+		<None Include="$(OutputPath)Mesch.DomainEvents.SourceGenerator.dll" Pack="true" PackagePath="analyzers\dotnet\cs\Mesch.DomainEvents.SourceGenerator.dll" Visible="false" />
+	</ItemGroup>
+
+</Project>

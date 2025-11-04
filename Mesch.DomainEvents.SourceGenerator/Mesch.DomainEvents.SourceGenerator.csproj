@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Source generators must target netstandard2.0 -->
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+
+		<!-- Don't package this project directly -->
+		<IsPackable>false</IsPackable>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+
+		<!-- Ensure dependencies are copied to output -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+		<!-- Fix the analyzer warning -->
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Source Generator Dependencies - use stable versions -->
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!-- Include abstractions files for compilation only - no package reference -->
+	<ItemGroup>
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\DomainEventAttribute.cs" Link="Shared\DomainEventAttribute.cs" />
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\GenerateDomainEventsAttribute.cs" Link="Shared\GenerateDomainEventsAttribute.cs" />
+		<Compile Include="..\Mesch.DomainEvents.Abstractions\DomainEventType.cs" Link="Shared\DomainEventType.cs" />
+	</ItemGroup>
+
+</Project>
